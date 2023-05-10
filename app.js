@@ -2,11 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv').config();
+
+const absencesRouter = require('./routes/absencesroute');
+const loginRouter = require('./routes/loginroute');
 const app = express();
 app.use(bodyParser.json());
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "http://localhost:4200"
 };
 
 app.use(cors(corsOptions));
@@ -17,10 +20,13 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
+app.use('/api/absences', absencesRouter);
+app.use('/api/login', loginRouter);
+app.use((req, res, next) => {
+    res.status(404).send('Not Found');
 });
+
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
