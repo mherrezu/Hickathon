@@ -1,0 +1,13 @@
+<form (ngSubmit)="onSubmit()" #absenceForm="ngForm">
+    <div>
+        <label for="startDate">Fecha de salida:</label>
+        <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" required>
+    </div>
+
+    <div>
+        <label for="endDate">Fecha de entrada:</label>
+        <input type="date" id="endDate" name="endDate" [(ngModel)]="endDate" required>
+    </div>
+
+    <button type="submit" [disabled]="!absenceForm.valid">Solicitar</button>
+</form>
